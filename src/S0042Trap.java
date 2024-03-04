@@ -1,21 +1,20 @@
-
 public class S0042Trap {
 	class Solution {
 		public int trap(int[] height) {
 			int l = height.length;
-			int[][] f = new int[l][2];
-			f[0][0] = height[0];
-			f[l - 1][1] = height[l - 1];
-			for (int i = 1; i < l; i++)
-				f[i][0] = Math.max(f[i - 1][0], height[i]);
-			for (int i = l - 2; i >= 0; i--)
-				f[i][1] = Math.max(f[i + 1][1], height[i]);
-			int[] r = new int[l];
-			for (int i = 0; i < l; i++)
-				r[i] = Math.min(f[i][0], f[i][1]) - height[i];
+			if (l <= 2)
+				return 0;
+			int[] f1 = new int[l];
+			int[] f2 = new int[l];
+			f1[0] = height[0];
+			f2[l - 1] = height[l - 1];
+			for (int i = 1; i != l; i++)
+				f1[i] = f1[i - 1] < height[i] ? height[i] : f1[i - 1];
+			for (int i = l - 2; i != -1; i--)
+				f2[i] = f2[i + 1] < height[i] ? height[i] : f2[i + 1];
 			int sum = 0;
-			for (int i : r)
-				sum += i;
+			for (int i = 0; i != l; i++)
+				sum += (f1[i] < f2[i] ? f1[i] : f2[i]) - height[i];
 			return sum;
 		}
 	}

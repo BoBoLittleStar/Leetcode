@@ -1,4 +1,4 @@
-public class S0008Atoi {
+public class S0008MyAtoi {
 	class Solution {
 		public int myAtoi(String s) {
 			byte[] bs = s.trim().getBytes();
